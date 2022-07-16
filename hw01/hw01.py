@@ -10,10 +10,17 @@ def a_plus_abs_b(a, b):
     5
     """
     if b < 0:
-        f = lambda a, b: a - b # needs to be a function - "f = __" requires using lambda
+        f = lambda a, b: a - b 
+        # needs to be a function - "f = __" requires using lambda
     else:
         f = lambda a, b: a + b
     return f(a, b)
+
+# return to a function:
+    # def f(a, b):
+        # ___
+    # f = lambda a, b: __
+    # f = add
 
 
 def a_plus_abs_b_syntax_check():
