@@ -10,9 +10,9 @@ def a_plus_abs_b(a, b):
     5
     """
     if b < 0:
-        f = sub
+        f = lambda a, b: a - b # needs to be a function - "f = __" requires using lambda
     else:
-        f = add
+        f = lambda a, b: a + b
     return f(a, b)
 
 
@@ -40,7 +40,13 @@ def two_of_three(x, y, z):
     >>> two_of_three(5, 5, 5)
     50
     """
-    return (x*x + y*y + z*z) - max(x, y, z) * max(x, y, z)
+
+    # find the smalest a, and find the second smallest b, a*a + b*b
+        # a = min(x, y, z) -> problem: not knowing which one is a, stuck 
+    # compare two at one time: 
+        #a = x, b = y; then if z <= x, replace a = z, if x <= y, b = x; 
+                    # else: z <= y, b = z
+    return x*x + y*y + z*z - max(x, y, z)*max(x, y, z)
 
 
 def two_of_three_syntax_check():
@@ -65,19 +71,21 @@ def largest_factor(n):
     1
     """
     "*** YOUR CODE HERE ***"
-    factor = 1
-    for i in range (2, n):
-        if n % i == 0:
-            factor = i
-    return factor
 
+    # try from n - 1 to 1; if n % (x) == 0: return x
+
+    for x in range(n-1, 0, -1):
+        if n % x ==0:
+            return x
 
 def limited(x, z, limit):
     """Logic that is common to invert and change."""
-    if x == 0:
-        return limit
-    else:
+    if x != 0:
         return min(z/x, limit)
+    else:
+        return limit
+
+    # z = 1/x when there is one argument, z = abs(y-x)/x
 
 
 def invert_short(x, limit):
@@ -113,7 +121,7 @@ def change_short(x, y, limit):
     >>> change_short(x, y, 100)  # No error, even though abs(y - x) / x divides by 0!
     100
     """
-    return limited(x, abs(y-x), limit)
+    return limited(x, abs(y - x), limit)
 
 
 def invert_and_change_syntax_check():
@@ -144,22 +152,21 @@ def hailstone(n):
     >>> a
     7
     """
-    "*** YOUR CODE HERE ***"
-    counter = 1
-    while n > 1:
-        print(n)
-        counter += 1
-        if n % 2 == 0:
-            n = int(n/2)
-        else:
-            n = int(n*3 + 1)
+    "*** YOUR CODE HERE ***" 
     print(n)
-    return counter
+    step = 1
+    while n != 1:
+        if n % 2 == 0:
+            n //= 2     # floor division
+        else:
+            n = n * 3 + 1 
+        print(n)
+        step += 1
+    return step
 
 
 "*** YOUR CODE HERE ***"
 quine = ''
-
 
 def quine_test():
     """
@@ -167,7 +174,6 @@ def quine_test():
     QUINE!
     """
     import contextlib, io
-
     f = io.StringIO()
     with contextlib.redirect_stdout(f):
         exec(quine)
