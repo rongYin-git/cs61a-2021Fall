@@ -51,7 +51,7 @@ def two_of_three(x, y, z):
     # find the smalest a, and find the second smallest b, a*a + b*b
         # a = min(x, y, z) -> problem: not knowing which one is a, stuck 
     # compare two at one time: 
-        #a = x, b = y; then if z <= x, replace a = z, if x <= y, b = x; 
+        # a = x, b = y; then if z <= x, replace a = z, if x <= y, b = x; 
                     # else: z <= y, b = z
     return x*x + y*y + z*z - max(x, y, z)*max(x, y, z)
 
